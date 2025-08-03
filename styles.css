@@ -180,7 +180,39 @@ details p {
   border: 1px solid #333;
 }
 
+.terminal-output {
+  color: #eeeeee;
+  font-size: 15px;
+  margin-left: 1em;
+  white-space: pre-wrap;
+}
+
+.terminal-summary {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+details p {
+  margin-left: 35px;
+  color: #ffff99;
+}
+
+/* Start with both hidden */
+#tap-launch {
+  display: none;
+}
+
 @media (max-width: 600px) {
+  #tap-launch {
+    display: block;
+  }
+
+  /* Hide desktop prompt on small screens */
+  #launch-instruction {
+    display: none !important;
+  }
+  
   .container {
     max-width: 90vw;
   }
@@ -232,25 +264,24 @@ details p {
   border-radius: 4px;
   cursor: pointer;
 }
-  details summary {
-    margin-bottom: -40px;
-  }
-}
-
-.terminal-output {
+  .terminal-output {
   color: #eeeeee;
-  font-size: 15px;
+  font-size: 12px !important;
   margin-left: 1em;
   white-space: pre-wrap;
 }
-
-.terminal-summary {
-  font-family: 'Source Code Pro', monospace;
-  font-size: 14px;
-  cursor: pointer;
+details summary {
+  margin-bottom: -40px;
 }
-
 details p {
-  margin-left: 35px;
+  margin-left: 20px;
   color: #ffff99;
+  font-size: 10px;
+  padding: none;
+  margin-bottom: -28px;
+}
+details {
+  padding: none;
+  margin: none;
+}
 }
