@@ -232,6 +232,9 @@ details p {
   border-radius: 4px;
   cursor: pointer;
 }
+  details summary {
+    margin-bottom: -40px;
+  }
 }
 
 .terminal-output {
@@ -248,6 +251,6 @@ details p {
 }
 
 details p {
-  margin-left: 35px; /* adjust as needed */
+  margin-left: 35px;
   color: #ffff99;
 }
