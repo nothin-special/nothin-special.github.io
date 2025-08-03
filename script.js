@@ -9,12 +9,12 @@ const lines = [
   "guest@localhost:~$ ls projects",
   '<a href="https://github.com/nothin-special/security-logs/tree/main/HackTheBox" target="_blank">- HackTheBox Writeups</a>',
   '<a href="https://github.com/nothin-special/security-logs/tree/main/Projects" target="_blank">- Projects</a>',
-  '<a href="https://github.com/nothin-special/security-logs" target="_blank">- Other Content</a>',
+  '<a href="https://github.com/nothin-special/security-logs" target="_blank">- Main Content Page</a>',
   "",
   "guest@localhost:~$ links",
-  '<a href="https://github.com/yourprofile" target="_blank">- GitHub</a>',
-  '<a href="https://linkedin.com/in/yourprofile" target="_blank">- LinkedIn</a>',
-  '<a href="mailto:you@example.com">- Email</a>',
+  '<a href="https://github.com/nothin-special" target="_blank">- GitHub</a>',
+  '<a href="https://www.linkedin.com/in/benjamin-rada-298b2a230/" target="_blank">- LinkedIn</a>',
+  '<a href="https://nothin-special.github.io/">- Website</a>',
   "",
   "guest@localhost:~$ cat htb.md"
 ];
