@@ -4,144 +4,13 @@
   <meta charset="UTF-8">
   <title>NothinSpecial Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
-
-    body {
-      background-color: #0d0d0d;
-      color: #33ff33;
-      font-family: 'Source Code Pro', monospace;
-      padding: 40px;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .profile-frame {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 2px solid #33ff33;
-      margin: 0 auto 10px;
-      background-color: transparent;
-      background-size: cover;
-      background-position: center;
-      transition: background-image 0.4s ease;
-    }
-
-    .description {
-      text-align: center;
-      color: #33ff33;
-      margin-bottom: 30px;
-    }
-
-    .terminal-frame {
-      background-color: #1e1e1e;
-      border: 1px solid #333;
-      border-radius: 6px;
-      box-shadow: inset 0 0 10px #000;
-      padding: 10px 15px;
-      margin-top: 30px;
-      position: relative;
-    }
-
-    .terminal-header {
-      height: 16px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .dot {
-      height: 12px;
-      width: 12px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .red { background-color: #ff5f56; }
-    .yellow { background-color: #ffbd2e; }
-    .green { background-color: #27c93f; }
-
-    #cursor {
-      display: inline-block;
-      width: 10px;
-      background-color: #33ff33;
-      margin-left: 2px;
-      animation: blink 0.8s step-start infinite;
-    }
-
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-
-    a {
-      color: #66ccff;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    details {
-      margin-left: 20px;
-      margin-top: 8px;
-      margin-bottom: 10px;
-    }
-
-    details summary {
-      cursor: pointer;
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    details p {
-      margin: 4px 0 8px 0;
-      font-size: 14px;
-    }
-
-    #footer {
-      position: fixed;
-      bottom: 10px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      color: #555;
-      font-size: 13px;
-      background-color: #0d0d0d;
-      padding: 10px 0;
-      z-index: 10;
-    }
-
-    #image-preview {
-      display: none;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    #image-preview img {
-      max-width: 100%;
-      border: 1px solid #333;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        max-width: 90vw;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <div id="profile-frame" class="profile-frame"></div>
+    <div id="profile-frame" class="profile-frame">
+      <div id="loading-indicator" class="loading-text">loading...</div>
+    </div>
     <div class="description">Cybersecurity Professional | CTF Enthusiast</div>
 
     <div class="terminal-frame">
@@ -155,111 +24,12 @@
 
     <div id="image-preview">
       <p>feh profile.jpg</p>
-      <img src="/images/profile.jpg" alt="Opened Image">
+      <img src="./images/profile.jpg" alt="Opened Image">
     </div>
 
     <footer id="footer">Last updated: August 2025 | Version 1.0</footer>
   </div>
 
-<script>
-const lines = [
-  "user@nothinspecial:~$ whoami",
-  "Cybersecurity Professional | CTF Enthusiast",
-  "",
-  "user@nothinspecial:~$ ls projects",
-  '<a href="https://your-htb-page.github.io" target="_blank">- HackTheBox Writeups</a>',
-  '<a href="https://your-tryhackme-page.github.io" target="_blank">- TryHackMe Notes</a>',
-  '<a href="https://your-cheatsheet-page.github.io" target="_blank">- Cheatsheets</a>',
-  "",
-  "user@nothinspecial:~$ ls images",
-  '<span ondblclick="openImage()" style="cursor:pointer;">- profile.jpg</span>',
-  "",
-  "user@nothinspecial:~$ links",
-  '<a href="https://github.com/yourprofile" target="_blank">- GitHub</a>',
-  '<a href="https://linkedin.com/in/yourprofile" target="_blank">- LinkedIn</a>',
-  '<a href="mailto:you@example.com">- Email</a>',
-  "",
-  "user@nothinspecial:~$ cat htb.md"
-];
-
-const terminal = document.getElementById("terminal");
-const cursor = document.createElement("span");
-cursor.id = "cursor";
-cursor.innerHTML = "&nbsp;";
-document.body.appendChild(cursor);
-
-let lineIndex = 0;
-let charIndex = 0;
-let currentSpan;
-
-function typeLine() {
-  if (lineIndex >= lines.length) {
-    cursor.remove();
-    showDetails();
-    return;
-  }
-
-  const line = lines[lineIndex];
-
-  if (line.includes("<a") || line.includes("ondblclick")) {
-    const div = document.createElement("div");
-    div.innerHTML = line;
-    terminal.appendChild(div);
-    lineIndex++;
-    setTimeout(typeLine, 300);
-  } else {
-    const div = document.createElement("div");
-    currentSpan = document.createElement("span");
-    div.appendChild(currentSpan);
-    terminal.appendChild(div);
-    currentSpan.appendChild(cursor);
-    typeChar(line);
-  }
-}
-
-function typeChar(line) {
-  if (charIndex < line.length) {
-    cursor.insertAdjacentText("beforebegin", line.charAt(charIndex++));
-    setTimeout(() => typeChar(line), 20);
-  } else {
-    charIndex = 0;
-    lineIndex++;
-    setTimeout(typeLine, 150);
-  }
-}
-
-function showDetails() {
-  const blocks = `
-<details>
-  <summary>HackTheBox - SneakyMachine</summary>
-  <p>PrivEsc via sudoers misconfig. <a href="https://your-htb-link.com/sneakymachine" target="_blank">Read writeup</a></p>
-</details>
-<details>
-  <summary>TryHackMe - Blue</summary>
-  <p>SMB enumeration example. <a href="https://your-thm-link.com/blue" target="_blank">Read writeup</a></p>
-</details>
-<details>
-  <summary>Cheatsheets</summary>
-  <p>Linux and web pentest references. <a href="https://your-github-page.com/cheatsheets" target="_blank">View all</a></p>
-</details>`;
-  const wrapper = document.createElement("div");
-  wrapper.innerHTML = blocks;
-  terminal.appendChild(wrapper);
-}
-
-function openImage() {
-  const cmd = document.createElement("div");
-  cmd.textContent = "feh profile.jpg";
-  terminal.appendChild(cmd);
-
-  document.getElementById("image-preview").style.display = "block";
-
-  // Simulate loading image into circular profile frame
-  const profile = document.getElementById("profile-frame");
-  profile.style.backgroundImage = "url('https://raw.githubusercontent.com/yourusername/yourrepo/main/profile.jpg')";
-}
-typeLine();
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
