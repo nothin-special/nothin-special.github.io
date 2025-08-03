@@ -110,25 +110,36 @@ function showDetails() {
 
 document.addEventListener("DOMContentLoaded", () => {
   const terminalDiv = document.getElementById("terminal");
-  const launchInstruction = document.getElementById("launch-instruction");
+  const instruction = document.getElementById("launch-instruction");
+  const tapButton = document.getElementById("tap-launch");
+
   terminalDiv.style.display = "none";
 
-  // Only show the prompt if user hasn't pressed Enter after 10s
-  const enterPromptTimeout = setTimeout(() => {
-    launchInstruction.style.display = "block";
-  }, 10000);
-
-  const handler = (e) => {
-    if (e.key === "Enter") {
-      clearTimeout(enterPromptTimeout); // cancel if Enter was pressed earlier
-      launchInstruction.style.display = "none"; // remove prompt
-      terminalDiv.style.display = "block";
-      document.removeEventListener("keydown", handler);
-      typeLine();
-    }
+  const startTyping = () => {
+    terminalDiv.style.display = "block";
+    instruction.style.display = "none";
+    tapButton.style.display = "none";
+    typeLine();
   };
 
+  // Handle Enter key
+  const handler = (e) => {
+    if (e.key === "Enter") {
+      document.removeEventListener("keydown", handler);
+      startTyping();
+    }
+  };
   document.addEventListener("keydown", handler);
+
+  // Show tap button after delay on small screens
+  if (window.innerWidth <= 768) {
+    setTimeout(() => {
+      tapButton.style.display = "block";
+    }, 10000);
+
+    tapButton.addEventListener("click", startTyping);
+  }
 });
+
 
 
