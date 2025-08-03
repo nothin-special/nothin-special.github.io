@@ -16,6 +16,18 @@ body {
   margin: 0 auto;
 }
 
+.cursor {
+  display: inline-block;
+  animation: blink 1s step-end infinite;
+  color: #33ff33; /* Match your terminal text */
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 .loading-text {
   color: #33ff33;
   font-size: 12px;
@@ -74,6 +86,12 @@ body {
   text-align: center;
   color: #33ff33;
   margin-bottom: 30px;
+}
+
+.name {
+  text-align: center;
+  color: #33ff33;
+  margin-bottom: 5px;
 }
 
 .terminal-frame {
@@ -216,3 +234,20 @@ details p {
 }
 }
 
+.terminal-output {
+  color: #eeeeee;
+  font-size: 15px;
+  margin-left: 1em;
+  white-space: pre-wrap;
+}
+
+.terminal-summary {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+details p {
+  margin-left: 35px; /* adjust as needed */
+  color: #ffff99;
+}
