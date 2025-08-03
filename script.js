@@ -23,7 +23,6 @@ const terminal = document.getElementById("terminal");
 const cursor = document.createElement("span");
 cursor.id = "cursor";
 cursor.innerHTML = "&nbsp;";
-document.body.appendChild(cursor);
 
 let lineIndex = 0;
 let charIndex = 0;
@@ -31,7 +30,7 @@ let currentSpan;
 
 function typeLine() {
   if (lineIndex >= lines.length) {
-    cursor.remove();
+    cursor.classList.add('dimmed');
     showDetails();
     return;
   }
@@ -109,4 +108,27 @@ function showDetails() {
   terminal.appendChild(wrapper);
 }
 
-typeLine();
+document.addEventListener("DOMContentLoaded", () => {
+  const terminalDiv = document.getElementById("terminal");
+  const launchInstruction = document.getElementById("launch-instruction");
+  terminalDiv.style.display = "none";
+
+  // Only show the prompt if user hasn't pressed Enter after 10s
+  const enterPromptTimeout = setTimeout(() => {
+    launchInstruction.style.display = "block";
+  }, 10000);
+
+  const handler = (e) => {
+    if (e.key === "Enter") {
+      clearTimeout(enterPromptTimeout); // cancel if Enter was pressed earlier
+      launchInstruction.style.display = "none"; // remove prompt
+      terminalDiv.style.display = "block";
+      document.removeEventListener("keydown", handler);
+      typeLine();
+    }
+  };
+
+  document.addEventListener("keydown", handler);
+});
+
+
