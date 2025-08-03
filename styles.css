@@ -1,168 +1,253 @@
-const lines = [
-  "user@nothinspecial:~$ whoami",
-  "Cybersecurity Professional | CTF Enthusiast",
-  "",
-  "user@nothinspecial:~$ ls images",
-  "- profile.jpg",
-  "user@nothinspecial:~$ feh profile.jpg",
-  "",
-  "user@nothinspecial:~$ ls projects",
-  '<a href="https://your-htb-page.github.io" target="_blank">- HackTheBox Writeups</a>',
-  '<a href="https://your-tryhackme-page.github.io" target="_blank">- TryHackMe Notes</a>',
-  '<a href="https://your-cheatsheet-page.github.io" target="_blank">- Cheatsheets</a>',
-  "",
-  "user@nothinspecial:~$ links",
-  '<a href="https://github.com/yourprofile" target="_blank">- GitHub</a>',
-  '<a href="https://linkedin.com/in/yourprofile" target="_blank">- LinkedIn</a>',
-  '<a href="mailto:you@example.com">- Email</a>',
-  "",
-  "user@nothinspecial:~$ cat htb.md"
-];
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
 
-const terminal = document.getElementById("terminal");
-const cursor = document.createElement("span");
-cursor.id = "cursor";
-cursor.innerHTML = "&nbsp;";
+body {
+  background-color: #0d0d0d;
+  color: #33ff33;
+  font-family: 'Source Code Pro', monospace;
+  padding: 40px;
+}
 
-let lineIndex = 0;
-let charIndex = 0;
-let currentSpan;
-let hasLaunched = false;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-function typeLine() {
-  if (lineIndex >= lines.length) {
-    showDetails();
-    return;
-  }
+.cursor {
+  display: inline-block;
+  animation: blink 1s step-end infinite;
+  color: #33ff33; /* Match your terminal text */
+}
 
-  const line = lines[lineIndex];
-  const div = document.createElement("div");
-
-  if (line.startsWith("user@nothinspecial:~$ ")) {
-    const prompt = "user@nothinspecial:~$ ";
-    const command = line.substring(prompt.length);
-    const isLaunch = command === "./launch.sh";
-
-    div.appendChild(document.createTextNode(prompt));
-
-    if (isLaunch) {
-      // Write launch command directly
-      div.appendChild(document.createTextNode(command));
-      terminal.appendChild(div);
-
-      // Add simulated feedback line
-      const feedback = document.createElement("div");
-      feedback.className = "terminal-output";
-      feedback.textContent = "[ loading profile... ]";
-      terminal.appendChild(feedback);
-
-      lineIndex++;
-      setTimeout(typeLine, 700);
-      return;
-    } else {
-      // Animate as normal
-      currentSpan = document.createElement("span");
-      div.appendChild(currentSpan);
-      currentSpan.appendChild(cursor);
-      terminal.appendChild(div);
-      setTimeout(() => typeChar(command), 300);
-    }
-  } else {
-    div.className = "terminal-output";
-    div.innerHTML = line.includes("<a") ? line : line;
-    terminal.appendChild(div);
-    lineIndex++;
-    setTimeout(typeLine, 200);
+@keyframes blink {
+  50% {
+    opacity: 0;
   }
 }
 
+.loading-text {
+  color: #33ff33;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 48px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.launch-text {
+  color: #33ff33;
+  font-size: 14px;
+  margin-top: 8px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.key {
+  background: #0d0d0d;
+  border: 1px solid #33ff33;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.popup-hint {
+  margin-top: 12px;
+  color: #888;
+  font-size: 13px;
+  text-align: center;
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 0.85; }
+}
 
 
-function typeChar(text) {
-  if (charIndex < text.length) {
-    cursor.insertAdjacentText("beforebegin", text.charAt(charIndex++));
-    setTimeout(() => typeChar(text), 60);
-  } else {
-    if (text === "feh profile.jpg") openImage();
-    charIndex = 0;
-    lineIndex++;
-    setTimeout(typeLine, 300);
+.profile-frame {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid #33ff33;
+  margin: 0 auto 10px;
+  background-color: #1e1e1e;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.6s ease-in-out, background-color 0.3s;
+}
+
+.description {
+  text-align: center;
+  color: #33ff33;
+  margin-bottom: 30px;
+}
+
+.name {
+  text-align: center;
+  color: #33ff33;
+  margin-bottom: 5px;
+}
+
+.terminal-frame {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  box-shadow: inset 0 0 10px #000;
+  padding: 10px 15px;
+  margin-top: 30px;
+  position: relative;
+}
+
+.terminal-header {
+  height: 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.red { background-color: #ff5f56; }
+.yellow { background-color: #ffbd2e; }
+.green { background-color: #27c93f; }
+
+#cursor {
+  display: inline-block;
+  width: 10px;
+  background-color: #33ff33;
+  margin-left: 2px;
+  animation: blink 0.8s step-start infinite;
+}
+#cursor.dimmed {
+  opacity: 0.3;
+  animation: none;
+}
+
+a {
+  color: #66ccff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+details {
+  margin-left: 20px;
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+details summary {
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+details p {
+  margin: 4px 0 8px 0;
+  font-size: 14px;
+}
+
+#footer {
+  text-align: center;
+  color: #555;
+  font-size: 13px;
+  background-color: #0d0d0d;
+  padding: 10px 0;
+}
+
+#image-preview {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#image-preview img {
+  max-width: 100%;
+  border: 1px solid #333;
+}
+
+@media (max-width: 600px) {
+  .container {
+    max-width: 90vw;
   }
+
+  body {
+    padding: 20px;
+    font-size: 14px;
+  }
+
+  .profile-frame {
+    width: 80px;
+    height: 80px;
+  }
+
+  .description,
+  .launch-text,
+  .popup-hint {
+    font-size: 13px;
+  }
+
+  .terminal-frame {
+    padding: 10px;
+    overflow-x: auto;
+  }
+
+  #terminal div {
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+
+  a {
+    display: inline-block;
+    padding: 4px 0;
+  }
+
+  #cursor {
+    width: 8px;
+    height: 1em;
+  }
+  .launch-button {
+  background-color: #0d0d0d;
+  color: #33ff33;
+  border: 1px solid #33ff33;
+  padding: 8px 16px;
+  margin: 12px auto 0;
+  display: block;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
 }
 
-function openImage() {
-    const feedback = document.createElement("div");
-    feedback.textContent = "[ profile.jpg opened ]";
-    feedback.className = "terminal-output";
-    terminal.appendChild(feedback);
-
-
-  const profile = document.getElementById("profile-frame");
-  const loader = document.getElementById("loading-indicator");
-
-  setTimeout(() => {
-    profile.style.backgroundImage = "url('./images/profile.jpg')";
-    profile.style.backgroundColor = "transparent";
-    loader.style.display = "none";
-  }, 1000);
+.terminal-output {
+  color: #eeeeee;
+  font-size: 15px;
+  margin-left: 1em;
+  white-space: pre-wrap;
 }
 
-function showDetails() {
-  const blocks = `
-<details open>
-  <summary class="terminal-output">HackTheBox - Chemistry</summary>
-  <p>PrivEsc via sudoers misconfig. <a href="https://your-htb-link.com/sneakymachine" target="_blank">Read writeup</a></p>
-</details>
-<details>
-  <summary class="terminal-output">HackTheBox - Blue</summary>
-  <p>SMB enumeration example. <a href="https://your-thm-link.com/blue" target="_blank">Read writeup</a></p>
-</details>
-<details>
-  <summary class="terminal-output">Cheatsheets</summary>
-  <p>Linux and web pentest references. <a href="https://your-github-page.com/cheatsheets" target="_blank">View all</a></p>
-</details>`;
-  const wrapper = document.createElement("div");
-  wrapper.innerHTML = blocks;
-  terminal.appendChild(wrapper);
+.terminal-summary {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const terminalDiv = document.getElementById("terminal");
-  const instruction = document.getElementById("launch-instruction");
-  const tapButton = document.getElementById("tap-launch");
-
-  terminalDiv.style.display = "none";
-  instruction.style.display = "none";
-  tapButton.style.display = "none";
-
-  const startTyping = () => {
-    const launchCursor = document.getElementById("launch-cursor");
-    if (launchCursor) launchCursor.remove();
-
-    if (hasLaunched) return;
-    hasLaunched = true;
-
-    terminalDiv.style.display = "block";
-    instruction.style.display = "none";
-    tapButton.style.display = "none";
-    typeLine();
-  };
-
-  const handler = (e) => {
-    if (e.key === "Enter") {
-      document.removeEventListener("keydown", handler);
-      startTyping();
-    }
-  };
-
-  document.addEventListener("keydown", handler);
-  tapButton.addEventListener("click", startTyping);
-
-  setTimeout(() => {
-    if (hasLaunched) return;
-    instruction.style.display = "block";
-    if (window.innerWidth <= 768) {
-      tapButton.style.display = "block";
-    }
-  }, 10000);
-});
+details p {
+  margin-left: 35px; /* adjust as needed */
+  color: #ffff99;
+}
