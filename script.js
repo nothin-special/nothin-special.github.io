@@ -1,22 +1,22 @@
 const lines = [
-  "user@nothinspecial:~$ whoami",
+  "guest@localhost:~$ whoami",
   "Cybersecurity Professional | CTF Enthusiast",
   "",
-  "user@nothinspecial:~$ ls images",
+  "guest@localhost:~$ ls images",
   "- profile.jpg",
-  "user@nothinspecial:~$ feh profile.jpg",
+  "guest@localhost:~$ feh profile.jpg",
   "",
-  "user@nothinspecial:~$ ls projects",
+  "guest@localhost:~$ ls projects",
   '<a href="https://your-htb-page.github.io" target="_blank">- HackTheBox Writeups</a>',
   '<a href="https://your-tryhackme-page.github.io" target="_blank">- TryHackMe Notes</a>',
   '<a href="https://your-cheatsheet-page.github.io" target="_blank">- Cheatsheets</a>',
   "",
-  "user@nothinspecial:~$ links",
+  "guest@localhost:~$ links",
   '<a href="https://github.com/yourprofile" target="_blank">- GitHub</a>',
   '<a href="https://linkedin.com/in/yourprofile" target="_blank">- LinkedIn</a>',
   '<a href="mailto:you@example.com">- Email</a>',
   "",
-  "user@nothinspecial:~$ cat htb.md"
+  "guest@localhost:~$ cat htb.md"
 ];
 
 const terminal = document.getElementById("terminal");
@@ -27,10 +27,10 @@ cursor.innerHTML = "&nbsp;";
 let lineIndex = 0;
 let charIndex = 0;
 let currentSpan;
+let hasLaunched = false;
 
 function typeLine() {
   if (lineIndex >= lines.length) {
-    cursor.classList.add('dimmed');
     showDetails();
     return;
   }
@@ -38,29 +38,45 @@ function typeLine() {
   const line = lines[lineIndex];
   const div = document.createElement("div");
 
-  if (line.startsWith("user@nothinspecial:~$ ")) {
-    const prompt = "user@nothinspecial:~$ ";
+  if (line.startsWith("guest@localhost:~$ ")) {
+    const prompt = "guest@localhost:~$ ";
+    const command = line.substring(prompt.length);
+    const isLaunch = command === "./launch.sh";
+
     div.appendChild(document.createTextNode(prompt));
 
-    currentSpan = document.createElement("span");
-    div.appendChild(currentSpan);
-    terminal.appendChild(div);
-    currentSpan.appendChild(cursor);
+    if (isLaunch) {
+      // Write launch command directly
+      div.appendChild(document.createTextNode(command));
+      terminal.appendChild(div);
 
-    const command = line.substring(prompt.length);
-    setTimeout(() => typeChar(command), 400);
-  } else if (line.includes("<a")) {
-    div.innerHTML = line;
+      // Add simulated feedback line
+      const feedback = document.createElement("div");
+      feedback.className = "terminal-output";
+      feedback.textContent = "[ loading profile... ]";
+      terminal.appendChild(feedback);
+
+      lineIndex++;
+      setTimeout(typeLine, 700);
+      return;
+    } else {
+      // Animate as normal
+      currentSpan = document.createElement("span");
+      div.appendChild(currentSpan);
+      currentSpan.appendChild(cursor);
+      terminal.appendChild(div);
+      setTimeout(() => typeChar(command), 300);
+    }
+  } else {
+    div.className = "terminal-output";
+    div.innerHTML = line.includes("<a") ? line : line;
     terminal.appendChild(div);
     lineIndex++;
     setTimeout(typeLine, 200);
-  } else {
-    div.textContent = line;
-    terminal.appendChild(div);
-    lineIndex++;
-    setTimeout(typeLine, 150);
   }
 }
+
+
 
 function typeChar(text) {
   if (charIndex < text.length) {
@@ -75,9 +91,11 @@ function typeChar(text) {
 }
 
 function openImage() {
-  const cmd = document.createElement("div");
-  cmd.textContent = "feh profile.jpg";
-  terminal.appendChild(cmd);
+    const feedback = document.createElement("div");
+    feedback.textContent = "[ profile.jpg opened ]";
+    feedback.className = "terminal-output";
+    terminal.appendChild(feedback);
+
 
   const profile = document.getElementById("profile-frame");
   const loader = document.getElementById("loading-indicator");
@@ -91,16 +109,16 @@ function openImage() {
 
 function showDetails() {
   const blocks = `
-<details>
-  <summary>HackTheBox - SneakyMachine</summary>
+<details open>
+  <summary class="terminal-output">HackTheBox - Chemistry</summary>
   <p>PrivEsc via sudoers misconfig. <a href="https://your-htb-link.com/sneakymachine" target="_blank">Read writeup</a></p>
 </details>
 <details>
-  <summary>TryHackMe - Blue</summary>
+  <summary class="terminal-output">HackTheBox - Blue</summary>
   <p>SMB enumeration example. <a href="https://your-thm-link.com/blue" target="_blank">Read writeup</a></p>
 </details>
 <details>
-  <summary>Cheatsheets</summary>
+  <summary class="terminal-output">Cheatsheets</summary>
   <p>Linux and web pentest references. <a href="https://your-github-page.com/cheatsheets" target="_blank">View all</a></p>
 </details>`;
   const wrapper = document.createElement("div");
@@ -114,32 +132,37 @@ document.addEventListener("DOMContentLoaded", () => {
   const tapButton = document.getElementById("tap-launch");
 
   terminalDiv.style.display = "none";
+  instruction.style.display = "none";
+  tapButton.style.display = "none";
 
   const startTyping = () => {
+    const launchCursor = document.getElementById("launch-cursor");
+    if (launchCursor) launchCursor.remove();
+
+    if (hasLaunched) return;
+    hasLaunched = true;
+
     terminalDiv.style.display = "block";
     instruction.style.display = "none";
     tapButton.style.display = "none";
     typeLine();
   };
 
-  // Handle Enter key
   const handler = (e) => {
     if (e.key === "Enter") {
       document.removeEventListener("keydown", handler);
       startTyping();
     }
   };
+
   document.addEventListener("keydown", handler);
+  tapButton.addEventListener("click", startTyping);
 
-  // Show tap button after delay on small screens
-  if (window.innerWidth <= 768) {
-    setTimeout(() => {
+  setTimeout(() => {
+    if (hasLaunched) return;
+    instruction.style.display = "block";
+    if (window.innerWidth <= 768) {
       tapButton.style.display = "block";
-    }, 10000);
-
-    tapButton.addEventListener("click", startTyping);
-  }
+    }
+  }, 10000);
 });
-
-
-
