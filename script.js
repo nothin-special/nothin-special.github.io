@@ -111,15 +111,15 @@ function showDetails() {
   const blocks = `
 <details open>
   <summary class="terminal-output">HackTheBox - Chemistry</summary>
-  <p>PrivEsc via sudoers misconfig. <a href="https://your-htb-link.com/sneakymachine" target="_blank">Read writeup</a></p>
+  <p>PrivEsc via sudoers misconfig. <a href="https://github.com/nothin-special/security-logs/blob/main/HackTheBox/Chemistry.md" target="_blank">Read writeup</a></p>
 </details>
 <details>
-  <summary class="terminal-output">HackTheBox - Blue</summary>
-  <p>SMB enumeration example. <a href="https://your-thm-link.com/blue" target="_blank">Read writeup</a></p>
+  <summary class="terminal-output">Project - Flipper Zero</summary>
+  <p>SMB enumeration example. <a href="https://github.com/nothin-special/security-logs/blob/main/Projects/FlipperZero.md" target="_blank">Read more</a></p>
 </details>
 <details>
   <summary class="terminal-output">Cheatsheets</summary>
-  <p>Linux and web pentest references. <a href="https://your-github-page.com/cheatsheets" target="_blank">View all</a></p>
+  <p>Linux and web pentest references. Coming Soon... <a href="#" target="_blank">View all</a></p>
 </details>`;
   const wrapper = document.createElement("div");
   wrapper.innerHTML = blocks;
