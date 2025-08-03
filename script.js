@@ -158,11 +158,17 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", handler);
   tapButton.addEventListener("click", startTyping);
 
-  setTimeout(() => {
-    if (hasLaunched) return;
-    instruction.style.display = "block";
-    if (window.innerWidth <= 768) {
-      tapButton.style.display = "block";
-    }
-  }, 10000);
+  // Mobile: show tap right away
+  if (window.innerWidth <= 768) {
+    tapButton.style.display = "block";
+  }
+
+  // Desktop: show enter instruction after 10s
+  if (window.innerWidth > 768) {
+    setTimeout(() => {
+      if (!hasLaunched) {
+        instruction.style.display = "block";
+      }
+    }, 10000);
+  }
 });
