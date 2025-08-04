@@ -119,7 +119,7 @@ function showDetails() {
 </details>
 <details>
   <summary class="terminal-output">Cheatsheets</summary>
-  <p>Linux and web pentest references. Coming Soon... <a href="#" target="_blank">View all</a></p>
+  <p>Linux and web pentest references. Coming Soon... <a href="" target="_blank">View all</a></p>
 </details>`;
   const wrapper = document.createElement("div");
   wrapper.innerHTML = blocks;
