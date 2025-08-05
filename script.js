@@ -16,7 +16,7 @@ const lines = [
   '<a href="https://www.linkedin.com/in/benjamin-rada-298b2a230/" target="_blank">- LinkedIn</a>',
   '<a href="https://nothin-special.github.io/">- Website</a>',
   "",
-  "guest@localhost:~$ cat htb.md"
+  "guest@localhost:~$ cat profile-page.md"
 ];
 
 const terminal = document.getElementById("terminal");
