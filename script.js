@@ -111,11 +111,11 @@ function showDetails() {
   const blocks = `
 <details open>
   <summary class="terminal-output">HackTheBox - Chemistry</summary>
-  <p>PrivEsc via sudoers misconfig. <a href="https://github.com/nothin-special/security-logs/blob/main/HackTheBox/Chemistry.md" target="_blank">Read writeup</a></p>
+  <p>PrivEsc via sudoers misconfig. <a href="https://github.com/nothin-special/security-logs/blob/main/HackTheBox/Chemistry/Chemistry.md" target="_blank">Read writeup</a></p>
 </details>
 <details>
   <summary class="terminal-output">Project - Flipper Zero</summary>
-  <p>SMB enumeration example. <a href="https://github.com/nothin-special/security-logs/blob/main/Projects/FlipperZero.md" target="_blank">Read more</a></p>
+  <p>SMB enumeration example. <a href="https://github.com/nothin-special/security-logs/blob/main/Projects/FlipperZero-Bluetooth/FlipperZero.md" target="_blank">Read more</a></p>
 </details>
 <details>
   <summary class="terminal-output">Cheatsheets</summary>
