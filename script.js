@@ -1,6 +1,6 @@
 const lines = [
   "guest@localhost:~$ whoami",
-  "Cybersecurity Professional | CTF Enthusiast",
+  "Hi, I'm Ben — a Security Ops Analyst who enjoys CTFs, hands-on projects, and building tools to break and defend.",
   "",
   "guest@localhost:~$ ls images",
   "- profile.jpg",
