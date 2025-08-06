@@ -6,7 +6,7 @@ const lines = [
   "- profile.jpg",
   "guest@localhost:~$ feh profile.jpg",
   "",
-  "guest@localhost:~$ ls projects",
+  "guest@localhost:~$ ls github",
   '<a href="https://github.com/nothin-special/security-logs" target="_blank">- Main Content Page</a>',
   '<a href="https://github.com/nothin-special/security-logs/tree/main/HackTheBox" target="_blank">- HackTheBox Writeups</a>',
   '<a href="https://github.com/nothin-special/security-logs/tree/main/Projects" target="_blank">- Projects</a>',
@@ -16,7 +16,7 @@ const lines = [
   '<a href="https://www.linkedin.com/in/benjamin-rada-298b2a230/" target="_blank">- LinkedIn</a>',
   '<a href="https://nothin-special.github.io/">- Website</a>',
   "",
-  "guest@localhost:~$ cat profile-page.md"
+  "guest@localhost:~$ cat recent-projects.md"
 ];
 
 const terminal = document.getElementById("terminal");
