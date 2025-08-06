@@ -118,8 +118,8 @@ function showDetails() {
   <p>Module that scans and interacts with nearby Bluetooth/BLE devices. <a href="https://github.com/nothin-special/security-logs/blob/main/Projects/FlipperZero-Bluetooth/FlipperZero.md" target="_blank">Read more</a></p>
 </details>
 <details>
-  <summary class="terminal-output">Cheatsheets</summary>
-  <p>Linux and web pentest references. Coming Soon... <a href="" target="_blank">View all</a></p>
+  <summary class="terminal-output">Project - Domain Threat Hunter</summary>
+  <p>Passive threat hunting Python script for defenders. <a href="https://github.com/nothin-special/security-logs/tree/main/Projects/Scripts/Blue/Domain-ThreatHunter" target="_blank">View all</a></p>
 </details>`;
   const wrapper = document.createElement("div");
   wrapper.innerHTML = blocks;
