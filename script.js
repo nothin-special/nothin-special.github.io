@@ -114,6 +114,10 @@ function showDetails() {
   <p>Easy Linux machine with vulnerable file upload and RCE through crafted payload. <a href="https://github.com/nothin-special/security-logs/blob/main/HackTheBox/Chemistry/Chemistry.md" target="_blank">Read writeup</a></p>
 </details>
 <details>
+  <summary class="terminal-output">HackTheBox - Puppy</summary>
+  <p>Medium Windows machine with Active Directory exploitation, credential extraction, and DPAPI decryption. <a href="https://github.com/nothin-special/security-logs/blob/main/HackTheBox/Puppy/puppy.md" target="_blank">Read writeup</a></p>
+</details>
+<details>
   <summary class="terminal-output">Project - Flipper Zero</summary>
   <p>Module that scans and interacts with nearby Bluetooth/BLE devices. <a href="https://github.com/nothin-special/security-logs/blob/main/Projects/FlipperZero-Bluetooth/FlipperZero.md" target="_blank">Read more</a></p>
 </details>
