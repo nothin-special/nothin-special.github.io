@@ -115,7 +115,7 @@ function showDetails() {
 </details>
 <details>
   <summary class="terminal-output">HackTheBox - Puppy</summary>
-  <p>Medium Windows machine with Active Directory exploitation, credential extraction, and DPAPI decryption. <a href="https://github.com/nothin-special/security-logs/blob/main/HackTheBox/Puppy/puppy.md" target="_blank">Read writeup</a></p>
+  <p>Medium Windows machine with Active Directory exploitation, credential extraction, and DPAPI decryption. <a href="https://github.com/nothin-special/security-logs/blob/main/HackTheBox/Puppy/README.md" target="_blank">Read writeup</a></p>
 </details>
 <details>
   <summary class="terminal-output">Project - Flipper Zero</summary>
